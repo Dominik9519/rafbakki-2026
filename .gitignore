@@ -41,3 +41,5 @@ yarn-error.log*
 next-env.d.ts
 public/*.mp4
 public/*.mp4
+public/showreel.mp4
+public/showreel1.mp4
