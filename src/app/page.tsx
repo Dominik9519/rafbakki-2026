@@ -131,18 +131,20 @@ export default function Page() {
               </div>
             </div>
 
-            <div
-  className="aspect-[9/16] max-h-[600px] mx-auto rounded-3xl overflow-hidden relative border border-white/20"
-  style={{ boxShadow: `0 0 60px ${brand.neonViolet}22, inset 0 0 60px ${brand.primary}15` }}
->
+            <div className="relative aspect-[12/16] max-h-[600px] mx-auto rounded-3xl overflow-hidden border border-white/20"
+     style={{ boxShadow: `0 0 60px ${brand.neonViolet}22, inset 0 0 60px ${brand.primary}15` }}>
+  
   <iframe
-  src="https://www.youtube.com/embed/h8A-Thn1iGU?autoplay=1&mute=1&loop=1&controls=0&playlist=h8A-Thn1iGU&modestbranding=1&rel=0&showinfo=0"
-  className="w-full h-full object-cover pointer-events-none"
-  allow="autoplay; encrypted-media; fullscreen"
-></iframe>
+    src="https://www.youtube.com/embed/h8A-Thn1iGU?autoplay=1&mute=1&loop=1&controls=0&playlist=h8A-Thn1iGU&modestbranding=1&rel=0&showinfo=0"
+    title="Rafbakki Showreel"
+    allow="autoplay; encrypted-media; fullscreen"
+    className="w-full h-full object-cover"
+  ></iframe>
 
-  <div className="absolute bottom-4 right-4 text-xs px-3 py-1 rounded-xl bg-black/40 border border-white/10" />
+  {/* Nakładka blokująca kliknięcia */}
+  <div className="absolute inset-0" style={{ pointerEvents: "none" }}></div>
 </div>
+
 
           </div>
         </div>
