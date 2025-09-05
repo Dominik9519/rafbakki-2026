@@ -131,7 +131,7 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="relative aspect-[9/16] max-h-[600px] mx-auto rounded-3xl overflow-hidden border border-white/20"
+            <div className="relative aspect-[12/16] max-h-[600px] mx-auto rounded-3xl overflow-hidden border border-white/20"
      style={{ boxShadow: `0 0 60px ${brand.neonViolet}22, inset 0 0 60px ${brand.primary}15` }}>
   
   <iframe
