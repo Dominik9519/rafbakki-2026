@@ -136,12 +136,11 @@ export default function Page() {
   style={{ boxShadow: `0 0 60px ${brand.neonViolet}22, inset 0 0 60px ${brand.primary}15` }}
 >
   <iframe
-    title="Rafbakki — showreel"
-    src="https://www.youtube.com/embed/h8A-Thn1iGU?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1&loop=1&playlist=h8A-Thn1iGU"
-    className="w-full h-full"
-    allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-    referrerPolicy="no-referrer-when-downgrade"
-  />
+  src="https://www.youtube.com/embed/h8A-Thn1iGU?autoplay=1&mute=1&loop=1&controls=0&playlist=h8A-Thn1iGU&modestbranding=1&rel=0&showinfo=0"
+  className="w-full h-full object-cover pointer-events-none"
+  allow="autoplay; encrypted-media; fullscreen"
+></iframe>
+
   <div className="absolute bottom-4 right-4 text-xs px-3 py-1 rounded-xl bg-black/40 border border-white/10" />
 </div>
 
