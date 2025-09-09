@@ -1,11 +1,12 @@
 "use client";
 
+import React from "react"
 import Image from "next/image";
 import ContactForm from "../components/ContactForm";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowRight,
+   ArrowRight,
   Sparkles,
   Menu,
   X,
@@ -19,6 +20,7 @@ import {
   Mail,
   MapPin,
   ChevronRight,
+  ChevronLeft, // <= DODAJ TO
   Zap,
 } from "lucide-react";
 
@@ -216,18 +218,19 @@ export default function Page() {
         </div>
       </section>
 
-      {/* VERKEFNI – albumy w układzie „górka” */}
+      {/* VERKEFNI – pasek 5 albumów z lightboxem */}
 <section id="projects" className="py-16 sm:py-24">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="flex items-end justify-between mb-8">
       <h2 className="text-2xl sm:text-3xl font-semibold">Verkefni</h2>
     </div>
 
-    <AlbumsMountain
+    <AlbumsStrip
       albums={[
         {
           key: "heimili",
           title: "Heimili",
+          cover: "/projects/heimili/1.jpg",
           images: [
             "/projects/heimili/1.jpg",
             "/projects/heimili/2.jpg",
@@ -239,6 +242,7 @@ export default function Page() {
         {
           key: "hotel",
           title: "Hótel",
+          cover: "/projects/hotel/1.jpg",
           images: [
             "/projects/hotel/1.jpg",
             "/projects/hotel/2.jpg",
@@ -249,6 +253,7 @@ export default function Page() {
         {
           key: "vidskipti",
           title: "Viðskipti",
+          cover: "/projects/vidskipti/1.jpg",
           images: [
             "/projects/vidskipti/1.jpg",
             "/projects/vidskipti/2.jpg",
@@ -259,6 +264,7 @@ export default function Page() {
         {
           key: "vidburdir",
           title: "Viðburðir",
+          cover: "/projects/vidburdir/1.jpg",
           images: [
             "/projects/vidburdir/1.jpg",
             "/projects/vidburdir/2.jpg",
@@ -268,6 +274,7 @@ export default function Page() {
         {
           key: "netkerfi",
           title: "Netkerfi",
+          cover: "/projects/netkerfi/1.jpg",
           images: [
             "/projects/netkerfi/1.jpg",
             "/projects/netkerfi/2.jpg",
@@ -280,6 +287,7 @@ export default function Page() {
     />
   </div>
 </section>
+
 
 
       {/* HAFA SAMBAND */}
@@ -495,95 +503,158 @@ function NeonBackdrop() {
 type Album = {
   key: string;
   title: string;
-  images: string[]; // absolute paths under /public
+  cover: string;   // miniatura albumu (pierwsze zdjęcie)
+  images: string[]; // zdjęcia w albumie
 };
 
-function AlbumsMountain({ albums }: { albums: Album[] }) {
-  // Wzór „górki” (od lewej do prawej): sm → md → xl → md → sm
-  // dla większej liczby zdjęć automatycznie dublujemy wzór.
-  const pattern = ["sm", "md", "xl", "md", "sm"] as const;
+function AlbumsStrip({ albums }: { albums: Album[] }) {
+  const [openAlbum, setOpenAlbum] = useState<Album | null>(null);
+  const [index, setIndex] = useState(0);
+
+  const open = (album: Album, startAt = 0) => {
+    setOpenAlbum(album);
+    setIndex(startAt);
+  };
+
+  const close = () => setOpenAlbum(null);
+
+  const next = () => {
+    if (!openAlbum) return;
+    setIndex((i) => (i + 1) % openAlbum.images.length);
+  };
+
+  const prev = () => {
+    if (!openAlbum) return;
+    setIndex((i) => (i - 1 + openAlbum.images.length) % openAlbum.images.length);
+  };
 
   return (
-    <div className="space-y-10">
-      {albums.map((album) => (
-        <AlbumRow key={album.key} album={album} pattern={pattern} />
-      ))}
-    </div>
-  );
-}
-
-function AlbumRow({
-  album,
-  pattern,
-}: {
-  album: Album;
-  pattern: readonly ("sm" | "md" | "xl")[];
-}) {
-  const [lightbox, setLightbox] = useState<string | null>(null);
-
-  // zbuduj mapę rozmiarów dla zdjęć tego albumu zgodnie z „górką”
-  const sizes = album.images.map((_, i) => pattern[i % pattern.length]);
-
-  // Tailwind karty (aspect ratio + „górka”)
-  const sizeClass = (s: "sm" | "md" | "xl") =>
-    ({
-      sm: "md:col-span-1 aspect-[4/3]",
-      md: "md:col-span-2 aspect-[4/3]",
-      xl: "md:col-span-3 aspect-[16/10]",
-    }[s]);
-
-  return (
-    <div className="rounded-3xl border border-white/10 p-5 bg-white/5">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg sm:text-xl font-semibold">{album.title}</h3>
-        <span className="text-xs opacity-70">{album.images.length} myndir</span>
-      </div>
-
-      {/* Grid: na mobile jedna kolumna, od md 7 kolumn (3+1+3 -> centralny blok ma 3 kolumny) */}
-      <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
-        {album.images.map((src, idx) => (
+    <>
+      {/* 5 miniatur w rzędzie (na mobile 2–3 kolumny) */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+        {albums.map((a) => (
           <button
-            key={src}
-            className={[
-              "group relative overflow-hidden rounded-2xl border border-white/15 bg-white/5",
-              sizeClass(sizes[idx]),
-            ].join(" ")}
-            onClick={() => setLightbox(src)}
-            aria-label="Opna mynd"
+            key={a.key}
+            onClick={() => open(a, 0)}
+            className="group relative w-full overflow-hidden rounded-2xl border border-white/15 bg-white/5"
+            aria-label={`Opna album: ${a.title}`}
           >
-            <Image
-              src={src}
-              alt={`${album.title} ${idx + 1}`}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-              sizes="(max-width: 768px) 100vw, 33vw"
-              priority={idx < 2}
-            />
-            <div
-              className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-              style={{ boxShadow: `inset 0 0 20px rgba(255,255,255,.08)` }}
-            />
+            <div className="relative aspect-[4/3]">
+              <Image
+                src={a.cover}
+                alt={a.title}
+                fill
+                sizes="(max-width: 1024px) 50vw, 20vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                priority={false}
+              />
+              {/* lekkie przyciemnienie na hover */}
+              <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+            </div>
+            <div className="p-3 flex items-center justify-between">
+              <div className="font-medium">{a.title}</div>
+              <div className="text-xs opacity-70">{a.images.length} myndir</div>
+            </div>
           </button>
         ))}
       </div>
 
-      {/* Lightbox (prosty) */}
-      {lightbox && (
-        <div
-          className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setLightbox(null)}
-        >
-          <div className="relative w-full max-w-5xl aspect-[16/9]">
+      {/* LIGHTBOX */}
+      {openAlbum && (
+        <Lightbox
+          title={openAlbum.title}
+          images={openAlbum.images}
+          index={index}
+          onClose={close}
+          onPrev={prev}
+          onNext={next}
+        />
+      )}
+    </>
+  );
+}
+
+function Lightbox({
+  title,
+  images,
+  index,
+  onClose,
+  onPrev,
+  onNext,
+}: {
+  title: string;
+  images: string[];
+  index: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  // klawiatura: ESC / ← →
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") onPrev();
+      if (e.key === "ArrowRight") onNext();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, onPrev, onNext]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-sm"
+      role="dialog"
+      aria-label={`${title} – ljósmyndir`}
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
+        <div className="relative w-full max-w-6xl">
+          {/* zamknij */}
+          <button
+            onClick={onClose}
+            aria-label="Loka"
+            className="absolute -top-10 right-0 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm hover:bg-white/15"
+          >
+            Loka
+          </button>
+
+          {/* obraz */}
+          <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-white/15 bg-black/40">
             <Image
-              src={lightbox}
-              alt="Mynd"
+              src={images[index]}
+              alt={`${title} ${index + 1}/${images.length}`}
               fill
-              className="object-contain"
               sizes="100vw"
+              className="object-contain"
+              priority
             />
           </div>
+
+          {/* nawigacja */}
+          <div className="mt-3 flex items-center justify-between text-sm opacity-80">
+            <div>{title}</div>
+            <div>
+              {index + 1} / {images.length}
+            </div>
+          </div>
+
+          {/* strzałki (przy krawędziach obrazka) */}
+          <button
+            onClick={onPrev}
+            aria-label="Fyrri mynd"
+            className="absolute left-2 top-1/2 -translate-y-1/2 grid place-items-center rounded-full border border-white/20 bg-white/10 p-2 hover:bg-white/15"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <button
+            onClick={onNext}
+            aria-label="Næsta mynd"
+            className="absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center rounded-full border border-white/20 bg-white/10 p-2 hover:bg-white/15"
+          >
+            <ChevronRight size={20} />
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
