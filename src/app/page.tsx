@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import ContactForm from "../components/ContactForm";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -215,46 +216,71 @@ export default function Page() {
         </div>
       </section>
 
-      {/* VERKEFNI */}
-      <section id="projects" className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-8">
-            <h2 className="text-2xl sm:text-3xl font-semibold">Verkefni</h2>
-            <div className="flex gap-2 text-xs">
-              {["Allt", "Heimili", "Hótel", "Viðskipti", "Viðburðir"].map((f) => (
-                <button key={f} className="px-3 py-1 rounded-xl border border-white/15 hover:bg-white/10">
-                  {f}
-                </button>
-              ))}
-            </div>
-          </div>
+      {/* VERKEFNI – albumy w układzie „górka” */}
+<section id="projects" className="py-16 sm:py-24">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex items-end justify-between mb-8">
+      <h2 className="text-2xl sm:text-3xl font-semibold">Verkefni</h2>
+    </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <article
-                key={i}
-                className="group rounded-3xl overflow-hidden border border-white/20 bg-white/5 relative"
-                style={{ boxShadow: `0 0 40px ${brand.primary}0f` }}
-              >
-                <div className="aspect-[4/3] relative overflow-hidden">
-                  <img
-                    src={`/projects/project${i + 1}.jpg`}
-                    alt={`Verkefni ${i + 1}`}
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ boxShadow: `inset 0 0 30px ${brand.primary}22, 0 0 20px ${brand.neonPink}33` }}
-                  />
-                </div>
-               
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+    <AlbumsMountain
+      albums={[
+        {
+          key: "heimili",
+          title: "Heimili",
+          images: [
+            "/projects/heimili/1.jpg",
+            "/projects/heimili/2.jpg",
+            "/projects/heimili/3.jpg",
+            "/projects/heimili/4.jpg",
+            "/projects/heimili/5.jpg",
+          ],
+        },
+        {
+          key: "hotel",
+          title: "Hótel",
+          images: [
+            "/projects/hotel/1.jpg",
+            "/projects/hotel/2.jpg",
+            "/projects/hotel/3.jpg",
+            "/projects/hotel/4.jpg",
+          ],
+        },
+        {
+          key: "vidskipti",
+          title: "Viðskipti",
+          images: [
+            "/projects/vidskipti/1.jpg",
+            "/projects/vidskipti/2.jpg",
+            "/projects/vidskipti/3.jpg",
+            "/projects/vidskipti/4.jpg",
+          ],
+        },
+        {
+          key: "vidburdir",
+          title: "Viðburðir",
+          images: [
+            "/projects/vidburdir/1.jpg",
+            "/projects/vidburdir/2.jpg",
+            "/projects/vidburdir/3.jpg",
+          ],
+        },
+        {
+          key: "netkerfi",
+          title: "Netkerfi",
+          images: [
+            "/projects/netkerfi/1.jpg",
+            "/projects/netkerfi/2.jpg",
+            "/projects/netkerfi/3.jpg",
+            "/projects/netkerfi/4.jpg",
+            "/projects/netkerfi/5.jpg",
+          ],
+        },
+      ]}
+    />
+  </div>
+</section>
+
 
       {/* HAFA SAMBAND */}
 <section id="contact" className="py-16 sm:py-24">
@@ -463,6 +489,101 @@ function NeonBackdrop() {
         className="absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full blur-3xl opacity-25"
         style={{ background: `radial-gradient(circle, ${brand.neonPink}, transparent 60%)` }}
       />
+    </div>
+  );
+}
+type Album = {
+  key: string;
+  title: string;
+  images: string[]; // absolute paths under /public
+};
+
+function AlbumsMountain({ albums }: { albums: Album[] }) {
+  // Wzór „górki” (od lewej do prawej): sm → md → xl → md → sm
+  // dla większej liczby zdjęć automatycznie dublujemy wzór.
+  const pattern = ["sm", "md", "xl", "md", "sm"] as const;
+
+  return (
+    <div className="space-y-10">
+      {albums.map((album) => (
+        <AlbumRow key={album.key} album={album} pattern={pattern} />
+      ))}
+    </div>
+  );
+}
+
+function AlbumRow({
+  album,
+  pattern,
+}: {
+  album: Album;
+  pattern: readonly ("sm" | "md" | "xl")[];
+}) {
+  const [lightbox, setLightbox] = useState<string | null>(null);
+
+  // zbuduj mapę rozmiarów dla zdjęć tego albumu zgodnie z „górką”
+  const sizes = album.images.map((_, i) => pattern[i % pattern.length]);
+
+  // Tailwind karty (aspect ratio + „górka”)
+  const sizeClass = (s: "sm" | "md" | "xl") =>
+    ({
+      sm: "md:col-span-1 aspect-[4/3]",
+      md: "md:col-span-2 aspect-[4/3]",
+      xl: "md:col-span-3 aspect-[16/10]",
+    }[s]);
+
+  return (
+    <div className="rounded-3xl border border-white/10 p-5 bg-white/5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg sm:text-xl font-semibold">{album.title}</h3>
+        <span className="text-xs opacity-70">{album.images.length} myndir</span>
+      </div>
+
+      {/* Grid: na mobile jedna kolumna, od md 7 kolumn (3+1+3 -> centralny blok ma 3 kolumny) */}
+      <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
+        {album.images.map((src, idx) => (
+          <button
+            key={src}
+            className={[
+              "group relative overflow-hidden rounded-2xl border border-white/15 bg-white/5",
+              sizeClass(sizes[idx]),
+            ].join(" ")}
+            onClick={() => setLightbox(src)}
+            aria-label="Opna mynd"
+          >
+            <Image
+              src={src}
+              alt={`${album.title} ${idx + 1}`}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              sizes="(max-width: 768px) 100vw, 33vw"
+              priority={idx < 2}
+            />
+            <div
+              className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+              style={{ boxShadow: `inset 0 0 20px rgba(255,255,255,.08)` }}
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* Lightbox (prosty) */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setLightbox(null)}
+        >
+          <div className="relative w-full max-w-5xl aspect-[16/9]">
+            <Image
+              src={lightbox}
+              alt="Mynd"
+              fill
+              className="object-contain"
+              sizes="100vw"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
