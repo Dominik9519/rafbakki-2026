@@ -229,7 +229,7 @@ export default function Page() {
       albums={[
         {
           key: "Heimili",
-          title: "Mynd",
+          title: "Album 1",
           cover: "/projects/Heimili/1.jpg",
           images: [
             "/projects/Heimili/1.jpg",
@@ -241,7 +241,7 @@ export default function Page() {
         },
         {
           key: "hotel",
-          title: "Hótel",
+          title: "Album 2",
           cover: "/projects/hotel/1.jpg",
           images: [
             "/projects/hotel/1.jpg",
@@ -252,7 +252,7 @@ export default function Page() {
         },
         {
           key: "vidskipti",
-          title: "Viðskipti",
+          title: "Album 3",
           cover: "/projects/vidskipti/1.jpg",
           images: [
             "/projects/vidskipti/1.jpg",
@@ -263,7 +263,7 @@ export default function Page() {
         },
         {
           key: "vidburdir",
-          title: "Viðburðir",
+          title: "Album 4",
           cover: "/projects/vidburdir/1.jpg",
           images: [
             "/projects/vidburdir/1.jpg",
@@ -273,7 +273,7 @@ export default function Page() {
         },
         {
           key: "netkerfi",
-          title: "Netkerfi",
+          title: "Album 5",
           cover: "/projects/netkerfi/1.jpg",
           images: [
             "/projects/netkerfi/1.jpg",
