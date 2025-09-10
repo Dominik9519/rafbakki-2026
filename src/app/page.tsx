@@ -258,11 +258,12 @@ export default function Page() {
           title: "Okkar verk",
           cover: "/projects/okkarverk/1.jpg",
           images: [
-            "/projects/okkarverk/1.jpg",
-            "/projects/okkarverk/2.jpg",
-            "/projects/okkarverk/3.jpg",
-            "/projects/okkarverk/4.jpg",
-            "/projects/okkarverk/5.jpg",
+            "/projects/okkarverk/1.png",
+            "/projects/okkarverk/2.png",
+            "/projects/okkarverk/3.png",
+            "/projects/okkarverk/4.png",
+            "/projects/okkarverk/5.png",
+            "/projects/okkarverk/6.png",
           ],
         },
       ]}
