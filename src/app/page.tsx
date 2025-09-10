@@ -218,7 +218,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* VERKEFNI – pasek 5 albumów z lightboxem */}
+{/* VERKEFNI – 2 albumy z lightboxem */}
 <section id="projects" className="py-16 sm:py-24">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="flex items-end justify-between mb-8">
@@ -228,66 +228,47 @@ export default function Page() {
     <AlbumsStrip
       albums={[
         {
-          key: "Heimili",
-          title: "Album 1",
-          cover: "/projects/Heimili/1.jpg",
+          key: "rafmagnshaettur",
+          title: "Rafmagnshættur",
+          cover: "/projects/rafmagnshaettur/1.png",
           images: [
-            "/projects/Heimili/1.jpg",
-            "/projects/Heimili/2.jpg",
-            "/projects/Heimili/3.jpg",
-            "/projects/Heimili/4.jpg",
-            "/projects/Heimili/5.jpg",
+            "/projects/rafmagnshaettur/1.png",
+            "/projects/rafmagnshaettur/2.png",
+            "/projects/rafmagnshaettur/3.png",
+            "/projects/rafmagnshaettur/4.png",
+            "/projects/rafmagnshaettur/5.png",
+            "/projects/rafmagnshaettur/6.png",
+            "/projects/rafmagnshaettur/7.png",
+            "/projects/rafmagnshaettur/8.png",
+            "/projects/rafmagnshaettur/9.png",
+            "/projects/rafmagnshaettur/10.png",
+            "/projects/rafmagnshaettur/11.png",
+            "/projects/rafmagnshaettur/12.png",
+            "/projects/rafmagnshaettur/13.png",
+            "/projects/rafmagnshaettur/14.png",
+            "/projects/rafmagnshaettur/15.png",
+            "/projects/rafmagnshaettur/16.png",
+            "/projects/rafmagnshaettur/17.png",
+            "/projects/rafmagnshaettur/18.png",
+            "/projects/rafmagnshaettur/19.png",
           ],
         },
         {
-          key: "hotel",
-          title: "Album 2",
-          cover: "/projects/hotel/1.jpg",
+          key: "okkarverk",
+          title: "Okkar verk",
+          cover: "/projects/okkarverk/1.jpg",
           images: [
-            "/projects/hotel/1.jpg",
-            "/projects/hotel/2.jpg",
-            "/projects/hotel/3.jpg",
-            "/projects/hotel/4.jpg",
-          ],
-        },
-        {
-          key: "vidskipti",
-          title: "Album 3",
-          cover: "/projects/vidskipti/1.jpg",
-          images: [
-            "/projects/vidskipti/1.jpg",
-            "/projects/vidskipti/2.jpg",
-            "/projects/vidskipti/3.jpg",
-            "/projects/vidskipti/4.jpg",
-          ],
-        },
-        {
-          key: "vidburdir",
-          title: "Album 4",
-          cover: "/projects/vidburdir/1.jpg",
-          images: [
-            "/projects/vidburdir/1.jpg",
-            "/projects/vidburdir/2.jpg",
-            "/projects/vidburdir/3.jpg",
-          ],
-        },
-        {
-          key: "netkerfi",
-          title: "Album 5",
-          cover: "/projects/netkerfi/1.jpg",
-          images: [
-            "/projects/netkerfi/1.jpg",
-            "/projects/netkerfi/2.jpg",
-            "/projects/netkerfi/3.jpg",
-            "/projects/netkerfi/4.jpg",
-            "/projects/netkerfi/5.jpg",
+            "/projects/okkarverk/1.jpg",
+            "/projects/okkarverk/2.jpg",
+            "/projects/okkarverk/3.jpg",
+            "/projects/okkarverk/4.jpg",
+            "/projects/okkarverk/5.jpg",
           ],
         },
       ]}
     />
   </div>
 </section>
-
 
 
       {/* HAFA SAMBAND */}
