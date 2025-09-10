@@ -1,105 +1,103 @@
-// src/app/api/contact/route.ts
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const runtime = "nodejs";
 
-type ContactPayload = {
-  name: string;
-  email: string;
-  message: string;
-  recipient: "adalgeir" | "dominik" | "both" | string;
+type BodyShape = {
+  name?: string;
+  email?: string;
+  message?: string;
+  recipient?: "adalgeir" | "dominik" | "both" | string;
   website?: string; // honeypot
 };
 
+function getEnv(name: string, optional = false) {
+  const v = process.env[name];
+  if (!v && !optional) throw new Error(`Missing env: ${name}`);
+  return v || "";
+}
+
 export async function POST(req: Request) {
   try {
+    // 1) parse body (JSON lub FormData)
     const contentType = req.headers.get("content-type") || "";
-    let data: ContactPayload;
-
+    let name = "", email = "", message = "", recipient = "", website = "";
     if (contentType.includes("application/json")) {
-      const body = (await req.json()) as Partial<ContactPayload>;
-      data = {
-        name: body.name ?? "",
-        email: body.email ?? "",
-        message: body.message ?? "",
-        recipient: (body.recipient as ContactPayload["recipient"]) ?? "both",
-        website: body.website ?? "",
-      };
+      const body = (await req.json()) as BodyShape;
+      name = body.name?.trim() ?? "";
+      email = body.email?.trim() ?? "";
+      message = body.message?.trim() ?? "";
+      recipient = body.recipient ?? "both";
+      website = body.website ?? "";
     } else {
       const form = await req.formData();
-      data = {
-        name: String(form.get("name") ?? ""),
-        email: String(form.get("email") ?? ""),
-        message: String(form.get("message") ?? ""),
-        recipient: String(form.get("recipient") ?? "both"),
-        website: String(form.get("website") ?? ""),
-      };
+      name = String(form.get("name") ?? "");
+      email = String(form.get("email") ?? "");
+      message = String(form.get("message") ?? "");
+      recipient = String(form.get("recipient") ?? "both");
+      website = String(form.get("website") ?? "");
     }
 
-    // honeypot – jeśli bot uzupełni pole, udaj sukces i nic nie wysyłaj
-    if (data.website) {
+    // 2) honeypot – udaj sukces przy spamie
+    if (website) {
       return NextResponse.json({ success: true });
     }
 
-    if (!data.name || !data.email || !data.message) {
+    if (!name || !email || !message) {
       return NextResponse.json(
         { success: false, error: "Brak wymaganych pól." },
         { status: 400 }
       );
     }
 
+    // 3) recipients
     const toCandidates =
-      data.recipient === "adalgeir"
+      recipient === "adalgeir"
         ? [process.env.MAIL_ADALGEIR]
-        : data.recipient === "dominik"
+        : recipient === "dominik"
         ? [process.env.MAIL_DOMINIK]
         : [process.env.MAIL_ADALGEIR, process.env.MAIL_DOMINIK];
 
-    const to = toCandidates.filter(
-      (v): v is string => typeof v === "string" && v.length > 0
-    );
-
+    const to = toCandidates.filter((v): v is string => Boolean(v));
     if (to.length === 0) {
       return NextResponse.json(
-        { success: false, error: "Brak adresatów (sprawdź MAIL_*)." },
+        { success: false, error: "Brak adresatów (MAIL_*)." },
         { status: 500 }
       );
     }
 
-    const from = process.env.MAIL_FROM || "Rafbakki <onboarding@resend.dev>";
+    // 4) transporter (Gmail SMTP)
+    const host = getEnv("SMTP_HOST");
+    const port = Number(getEnv("SMTP_PORT"));
+    const secure = String(getEnv("SMTP_SECURE")).toLowerCase() === "true";
+    const user = getEnv("SMTP_USER");
+    const pass = getEnv("SMTP_PASS");
+    const from = process.env.MAIL_FROM || `Rafbakki <${user}>`;
 
-    const result = await resend.emails.send({
-      from,
-      to,
-      subject: `Ný skilaboð af vefnum — ${data.name}`,
-      replyTo: data.email, // poprawna nazwa pola w Resend
-      text:
-        `Nafn: ${data.name}\n` +
-        `Netfang: ${data.email}\n` +
-        `Móttakandi: ${data.recipient}\n\n` +
-        `Skilaboð:\n${data.message}\n`,
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure,
+      auth: { user, pass },
     });
 
-    if (result.error) {
-      const msg =
-        typeof result.error === "object" &&
-        result.error !== null &&
-        "message" in result.error
-          ? String((result.error as { message?: unknown }).message)
-          : String(result.error);
-      return NextResponse.json(
-        { success: false, error: msg },
-        { status: 500 }
-      );
-    }
+    // 5) send
+    await transporter.sendMail({
+      from,
+      to, // string[]
+      subject: `Ný skilaboð af vefnum — ${name}`,
+      replyTo: email,
+      text:
+        `Nafn: ${name}\n` +
+        `Netfang: ${email}\n` +
+        `Móttakandi: ${recipient}\n\n` +
+        `Skilaboð:\n${message}\n`,
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Server error";
-    return NextResponse.json(
-      { success: false, error: message },
-      { status: 500 }
-    );
+    const msg =
+      err instanceof Error ? err.message : typeof err === "string" ? err : "Server error";
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
 }
