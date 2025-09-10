@@ -233,10 +233,10 @@ export default function Page() {
           cover: "/projects/Heimili/1.jpg",
           images: [
             "/projects/Heimili/1.jpg",
-            "/projects/heimili/2.jpg",
-            "/projects/heimili/3.jpg",
-            "/projects/heimili/4.jpg",
-            "/projects/heimili/5.jpg",
+            "/projects/Heimili/2.jpg",
+            "/projects/Heimili/3.jpg",
+            "/projects/Heimili/4.jpg",
+            "/projects/Heimili/5.jpg",
           ],
         },
         {
