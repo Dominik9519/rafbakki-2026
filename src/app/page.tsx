@@ -284,7 +284,12 @@ export default function Page() {
       >
         <h3 className="text-lg font-semibold mb-2">Aðalgeir Bjarki Þorsteinsson</h3>
         <ul className="space-y-2 text-sm opacity-90">
-          <li className="flex items-center gap-3"><Phone size={16} /> +354 848 0153</li>
+          <li className="flex items-center gap-3">
+        <Phone size={16} />
+        <a href="tel:+3548480153" className="hover:underline">
+          +354 848 0153
+        </a>
+      </li>
           <li className="flex items-center gap-3"><MapPin size={16} /> 810 Hveragerði</li>
           <li className="flex items-center gap-3"><Mail size={16} /> geiribjarki@gmail.com</li>
         </ul>
@@ -307,7 +312,12 @@ export default function Page() {
       >
         <h3 className="text-lg font-semibold mb-2">Dominik Urzeniczok</h3>
         <ul className="space-y-2 text-sm opacity-90">
-          <li className="flex items-center gap-3"><Phone size={16} /> +354 765 5233</li>
+        <li className="flex items-center gap-3">
+          <Phone size={16} />
+          <a href="tel:+3547655233" className="hover:underline">
+            +354 765 5233
+          </a>
+        </li>
           <li className="flex items-center gap-3"><MapPin size={16} /> 340 Stykkishólmur</li>
           <li className="flex items-center gap-3"><Mail size={16} /> dominik-urzeniczok@wp.pl</li>
         </ul>
