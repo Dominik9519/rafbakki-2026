@@ -228,7 +228,7 @@ export default function Page() {
     <AlbumsStrip
       albums={[
         {
-          key: "heimili",
+          key: "MYND",
           title: "Mynd",
           cover: "/projects/Heimili/1.jpg",
           images: [
