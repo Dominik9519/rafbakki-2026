@@ -512,34 +512,46 @@ function AlbumsStrip({ albums }: { albums: Album[] }) {
 
   return (
     <>
-      {/* 5 miniatur w rzędzie (na mobile 2–3 kolumny) */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-        {albums.map((a) => (
-          <button
-            key={a.key}
-            onClick={() => open(a, 0)}
-            className="group relative w-full overflow-hidden rounded-2xl border border-white/15 bg-white/5"
-            aria-label={`Opna album: ${a.title}`}
-          >
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={a.cover}
-                alt={a.title}
-                fill
-                sizes="(max-width: 1024px) 50vw, 20vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                priority={false}
-              />
-              {/* lekkie przyciemnienie na hover */}
-              <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
-            </div>
-            <div className="p-3 flex items-center justify-between">
-              <div className="font-medium">{a.title}</div>
-              <div className="text-xs opacity-70">{a.images.length} myndir</div>
-            </div>
-          </button>
-        ))}
-      </div>
+      {/* 2 duże albumy w rzędzie (na mobile 1 kolumna) */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+  {albums.map((a, i) => {
+    const isLeft = i % 2 === 0;
+    return (
+      <button
+        key={a.key}
+        onClick={() => open(a, 0)}
+        aria-label={`Opna album: ${a.title}`}
+        className={[
+          "group relative w-full overflow-hidden rounded-3xl border border-white/15 bg-white/5",
+          "transition-all duration-500 will-change-transform",
+          "hover:scale-[1.03]",
+          isLeft ? "hover:-translate-x-2" : "hover:translate-x-2",
+          "hover:shadow-[0_0_40px_rgba(69,180,232,0.25)]"
+        ].join(" ")}
+      >
+        {/* Okładka */}
+        <div className="relative aspect-[16/10]">
+          <Image
+            src={a.cover}
+            alt={a.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+          />
+          {/* lekkie przyciemnienie na hover */}
+          <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+        </div>
+
+        {/* Tytuł + liczba zdjęć */}
+        <div className="p-4 flex items-center justify-between">
+          <div className="font-semibold text-lg">{a.title}</div>
+          <div className="text-xs opacity-70">{a.images.length} myndir</div>
+        </div>
+      </button>
+    );
+  })}
+</div>
+
 
       {/* LIGHTBOX */}
       {openAlbum && (
