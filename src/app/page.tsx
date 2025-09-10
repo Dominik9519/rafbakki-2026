@@ -164,12 +164,12 @@ export default function Page() {
             </a>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <ServiceCard Icon={Shield} title="CCTV & viðvörun" desc="Dahua, Hikvision, greining með AI, ANPR, eftirlit allan sólarhringinn." />
+            <ServiceCard Icon={Shield} title="CCTV & viðvörun" desc="Dahua, Hikvision, greining með AI, bílnúmer, eftirlit allan sólarhringinn." />
             <ServiceCard Icon={House} title="Snjallt heimili" desc="Loxone, Shelly, Home Assistant, Grenton. Sjálfvirkni og senur." />
             <ServiceCard Icon={Network} title="Netkerfi" desc="Hönnun & innleiðing: VLAN, VPN, Wi-Fi 6/7, ljósleiðari." />
-            <ServiceCard Icon={Lightbulb} title="LED & lýsing" desc="Lýsingarverkefni, DMX, addressable LED, svið/viðburðir." />
+            <ServiceCard Icon={Lightbulb} title="LED & lýsing" desc="Lýsingarverkefni, DMX, forritanlegt led, svið/viðburðir." />
             <ServiceCard Icon={Camera} title="Mynddyrasímar" desc="IP/PoE, fjartenging, samþætting við öpp." />
-            <ServiceCard Icon={Hotel} title="Hótel & veitingar" desc="Digital signage, HACCP-eftirlit, sjálfvirkni bakhúss." />
+            <ServiceCard Icon={Hotel} title="Hótel & veitingar" desc="Digital signage, HACCP-eftirlit, sjálfvirkni eldhús." />
           </div>
         </div>
       </section>
@@ -185,7 +185,7 @@ export default function Page() {
               <h3 className="text-xl sm:text-2xl font-semibold mb-4">Af hverju Rafbakki?</h3>
               <ul className="space-y-3 text-sm opacity-90">
                 {[
-                  "Reynsla úr heimilum, hótelum og atvinnuhúsnæði",
+                  "Reynsla í þjónustu sveitarfélagareynsla úr heimilum, hótelum, atvinnuhúsnæðum og sveitarfélögum",
                   "Heill ferill: hönnun → framkvæmd → þjónusta → eftirlit",
                   "Örugg net og fjaraðgangur (VPN, VLAN-skipting)",
                   "Fegurð og afköst – létt, nútímaleg kerfi",
