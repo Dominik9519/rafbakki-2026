@@ -230,9 +230,9 @@ export default function Page() {
         {
           key: "heimili",
           title: "Heimili",
-          cover: "/projects/heimili/1.jpg",
+          cover: "/projects/Heimili/1.jpg",
           images: [
-            "public/projects/heimili/1.jpg",
+            "public/projects/Heimili/1.jpg",
             "/projects/heimili/2.jpg",
             "/projects/heimili/3.jpg",
             "/projects/heimili/4.jpg",
