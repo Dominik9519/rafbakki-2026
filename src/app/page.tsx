@@ -228,8 +228,8 @@ export default function Page() {
     <AlbumsStrip
       albums={[
         {
-          key: "heimili",
-          title: "Heimili",
+          key: "mynda 1",
+          title: "mynda 1",
           cover: "/projects/heimili/1.jpg",
           images: [
             "/projects/heimili/1.jpg",
@@ -240,8 +240,8 @@ export default function Page() {
           ],
         },
         {
-          key: "hotel",
-          title: "Hótel",
+          key: "mynda 2",
+          title: "mynda 2",
           cover: "/projects/hotel/1.jpg",
           images: [
             "/projects/hotel/1.jpg",
@@ -251,8 +251,8 @@ export default function Page() {
           ],
         },
         {
-          key: "vidskipti",
-          title: "Viðskipti",
+          key: "mynda 3",
+          title: "mynda 3",
           cover: "/projects/vidskipti/1.jpg",
           images: [
             "/projects/vidskipti/1.jpg",
@@ -262,8 +262,8 @@ export default function Page() {
           ],
         },
         {
-          key: "vidburdir",
-          title: "Viðburðir",
+          key: "mynda 4",
+          title: "mynda 4",
           cover: "/projects/vidburdir/1.jpg",
           images: [
             "/projects/vidburdir/1.jpg",
@@ -272,8 +272,8 @@ export default function Page() {
           ],
         },
         {
-          key: "netkerfi",
-          title: "Netkerfi",
+          key: "mynda 5",
+          title: "mynda 5",
           cover: "/projects/netkerfi/1.jpg",
           images: [
             "/projects/netkerfi/1.jpg",
