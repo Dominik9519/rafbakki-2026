@@ -230,13 +230,13 @@ export default function Page() {
         {
           key: "mynda 1",
           title: "mynda 1",
-          cover: "/projects/heimili/1.jpg",
+          cover: "/projects/mynda 1/1.jpg",
           images: [
-            "/projects/heimili/1.jpg",
-            "/projects/heimili/2.jpg",
-            "/projects/heimili/3.jpg",
-            "/projects/heimili/4.jpg",
-            "/projects/heimili/5.jpg",
+            "/projects/mynda 1/1.jpg",
+            "/projects/mynda 1/2.jpg",
+            "/projects/mynda 1/3.jpg",
+            "/projects/mynda 1/4.jpg",
+            "/projects/mynda 1/5.jpg",
           ],
         },
         {
