@@ -232,7 +232,7 @@ export default function Page() {
           title: "Heimili",
           cover: "/projects/Heimili/1.jpg",
           images: [
-            "public/projects/Heimili/1.jpg",
+            "/projects/Heimili/1.jpg",
             "/projects/heimili/2.jpg",
             "/projects/heimili/3.jpg",
             "/projects/heimili/4.jpg",
