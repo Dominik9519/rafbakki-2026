@@ -291,7 +291,12 @@ export default function Page() {
         </a>
       </li>
           <li className="flex items-center gap-3"><MapPin size={16} /> 810 Hveragerði</li>
-          <li className="flex items-center gap-3"><Mail size={16} /> geiribjarki@gmail.com</li>
+          <li className="flex items-center gap-3">
+  <Mail size={16} />
+  <a href="mailto:geiri@rafbakki.is" className="hover:underline">
+    geiri@rafbakki.is
+  </a>
+</li>
         </ul>
         <div className="mt-4 aspect-[4/3] rounded-2xl border border-white/10 overflow-hidden">
           <iframe
@@ -319,7 +324,12 @@ export default function Page() {
           </a>
         </li>
           <li className="flex items-center gap-3"><MapPin size={16} /> 340 Stykkishólmur</li>
-          <li className="flex items-center gap-3"><Mail size={16} /> dominik-urzeniczok@wp.pl</li>
+          <li className="flex items-center gap-3">
+  <Mail size={16} />
+  <a href="mailto:dominik@rafbakki.is" className="hover:underline">
+    dominik@rafbakki.is
+  </a>
+</li>
         </ul>
         <div className="mt-4 aspect-[4/3] rounded-2xl border border-white/10 overflow-hidden">
           <iframe
