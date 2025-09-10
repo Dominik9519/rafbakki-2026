@@ -256,7 +256,7 @@ export default function Page() {
         {
           key: "okkarverk",
           title: "Okkar verk",
-          cover: "/projects/okkarverk/1.jpg",
+          cover: "/projects/okkarverk/1.png",
           images: [
             "/projects/okkarverk/1.png",
             "/projects/okkarverk/2.png",
