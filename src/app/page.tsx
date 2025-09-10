@@ -229,7 +229,7 @@ export default function Page() {
       albums={[
         {
           key: "heimili",
-          title: "Heimili",
+          title: "Mynd",
           cover: "/projects/Heimili/1.jpg",
           images: [
             "/projects/Heimili/1.jpg",
