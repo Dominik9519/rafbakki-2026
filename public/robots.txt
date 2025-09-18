@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.rafbakki.is
+
+# Sitemaps
+Sitemap: https://www.rafbakki.is/sitemap.xml
