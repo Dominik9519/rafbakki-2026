@@ -37,6 +37,11 @@ export const metadata: Metadata = {
     description: "Rafmagn, snjallt heimili, CCTV, net – hönnun, uppsetning, þjónusta.",
     images: ["/og/rafbakki-og.jpg"],
   },
+  icons: {
+    icon: "/favicon.ico", // plik w public/
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
