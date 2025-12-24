@@ -135,7 +135,7 @@ export default function Page() {
             </div>
 
 <div
-  className="relative aspect-[11/16] max-h-[600px] mx-auto rounded-3xl overflow-hidden border border-white/20"
+  className="relative aspect-[11/17] max-h-[600px] mx-auto rounded-3xl overflow-hidden border border-white/20"
   style={{ boxShadow: `0 0 60px ${brand.neonViolet}22, inset 0 0 60px ${brand.primary}15` }}
 >
   <video
