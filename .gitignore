@@ -43,3 +43,5 @@ public/*.mp4
 public/*.mp4
 public/showreel.mp4
 public/showreel1.mp4
+!public/christmas.mp4
+
