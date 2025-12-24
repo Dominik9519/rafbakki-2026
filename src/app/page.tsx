@@ -144,7 +144,7 @@ export default function Page() {
     loop
     playsInline
     preload="metadata"
-    className="w-full h-full object-cover"
+    className="w-full h-full object-cover object-top"
   >
     <source src="/christmas.mp4" type="video/mp4" />
   </video>
