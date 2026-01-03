@@ -135,22 +135,20 @@ export default function Page() {
             </div>
 
 <div
-  className="relative aspect-[11/17] max-h-[600px] mx-auto rounded-3xl overflow-hidden border border-white/20"
+  className="relative aspect-[10/16] max-h-[600px] mx-auto rounded-3xl overflow-hidden border border-white/20"
   style={{ boxShadow: `0 0 60px ${brand.neonViolet}22, inset 0 0 60px ${brand.primary}15` }}
 >
-  <video
-    autoPlay
-    muted
-    loop
-    playsInline
-    preload="metadata"
-    className="w-full h-full object-cover object-top"
-  >
-    <source src="/christmas.mp4" type="video/mp4" />
-  </video>
+  <iframe
+    src="https://www.youtube.com/embed/h8A-Thn1iGU?autoplay=1&mute=1&loop=1&controls=0&playlist=h8A-Thn1iGU&modestbranding=1&rel=0&showinfo=0"
+    title="Rafbakki Showreel"
+    allow="autoplay; encrypted-media; fullscreen"
+    className="w-full h-full"
+  ></iframe>
 
-  <div className="pointer-events-none absolute inset-0 bg-black/10"></div>
+  {/* blokada kliknięć */}
+  <div className="pointer-events-none absolute inset-0"></div>
 </div>
+
 
 
 
