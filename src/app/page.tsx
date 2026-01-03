@@ -142,7 +142,7 @@ export default function Page() {
     src="https://www.youtube.com/embed/h8A-Thn1iGU?autoplay=1&mute=1&loop=1&controls=0&playlist=h8A-Thn1iGU&modestbranding=1&rel=0&showinfo=0"
     title="Rafbakki Showreel"
     allow="autoplay; encrypted-media; fullscreen"
-    className="w-full h-full"
+    className="w-full h-full pointer-events-none"
   ></iframe>
 
   {/* blokada kliknięć */}
